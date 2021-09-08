@@ -6,8 +6,10 @@ Yet another bundler for websites with esbuild.
 ## Installation
 
 ```bash
-npm install --save-dev esbpack
+npm install --save-dev esbuild esbpack
 ```
+
+Please install `esbuild` by your hands. `esbpack` doesn't install it automatically.
 
 ## Quickstart
 
