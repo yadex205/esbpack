@@ -30,14 +30,10 @@ const esbpackInternalAssetsManagerPlugin = (): esbuild.Plugin => ({
   },
 });
 
-type BuildOptions = Omit<esbuild.BuildOptions, 'write'>;
+export type EsbpackBuildOptions = Omit<esbuild.BuildOptions, 'write'>;
 
-interface BuildFunc {
-  (options: BuildOptions): void;
-}
-
-interface EsbpackOptions {
-  defineBuilds: (build: BuildFunc) => void;
+export interface EsbpackOptions {
+  defineBuilds: (build: (options: EsbpackBuildOptions) => void) => void;
   onAllBuildsFinished?: (assetsManager: AssetsManager) => {};
   devServer?: {
     port?: number;
@@ -68,7 +64,7 @@ export const esbpack = async (esbpackOptions: EsbpackOptions) => {
     }
   };
 
-  const build: BuildFunc = buildOptions => {
+  const build: (buildOptions: EsbpackBuildOptions) => void = buildOptions => {
     builds.push(
       esbuild.build({
         ...buildOptions,
