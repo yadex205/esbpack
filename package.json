@@ -39,6 +39,7 @@
     "fastify-websocket": "^4.0.0",
     "mime-types": "^2.1.32",
     "pino": "^6.13.2",
-    "pino-pretty": "^6.0.0"
+    "pino-pretty": "^6.0.0",
+    "tsconfig-paths": "^3.11.0"
   }
 }
