@@ -28,35 +28,27 @@ const externalizeNodeModulesPlugin: esbuild.Plugin = {
   },
 };
 
-(async () => {
-  const devServerClientJsBuildResult = await esbuild.build({
-    entryPoints: [path.join(SRC_DIR, 'dev-server-client.ts')],
-    outfile: path.join(DIST_DIR, 'dev-server-client.js'),
-    write: false,
+esbuild.build({
+  entryPoints: [path.join(SRC_DIR, 'dev-server-client.ts')],
+  outfile: path.join(DIST_DIR, 'dev-server-client.js'),
 
-    bundle: true,
-    format: 'iife',
-    minify: true,
-    platform: 'browser',
-  });
-  const devServerClientJsSource = devServerClientJsBuildResult.outputFiles[0].text;
+  bundle: true,
+  format: 'iife',
+  minify: true,
+  platform: 'browser',
+});
 
-  await esbuild.build({
-    entryPoints: [path.join(SRC_DIR, 'index.ts')],
-    outfile: path.join(DIST_DIR, 'index.js'),
-    write: true,
+esbuild.build({
+  entryPoints: [path.join(SRC_DIR, 'index.ts')],
+  outfile: path.join(DIST_DIR, 'index.js'),
+  write: true,
 
-    bundle: true,
+  bundle: true,
 
-    format: 'cjs',
-    minify: true,
-    platform: 'node',
-    target: 'node12',
+  format: 'cjs',
+  minify: true,
+  platform: 'node',
+  target: 'node12',
 
-    define: {
-      __esbpackInternalDevServerClientJsSource__: JSON.stringify(devServerClientJsSource),
-    },
-
-    plugins: [externalizeNodeModulesPlugin],
-  });
-})();
+  plugins: [externalizeNodeModulesPlugin],
+});

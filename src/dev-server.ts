@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 
 import fastifyFactory from 'fastify';
@@ -6,6 +7,8 @@ import mime from 'mime-types';
 
 import { assetsManager } from './assets-manager';
 import { logger } from './logger';
+
+const devServerClientJsSource = fs.readFileSync(path.join(__dirname, 'dev-server-client.js'));
 
 export interface EsbpackDevServerEvent<E extends string = string> {
   createdAt: number;
@@ -43,7 +46,7 @@ export class EsbpackDevServer {
     });
 
     fastify.get('/__dev-server-client.js', (_req, res) => {
-      res.code(200).type('text/javascript').send(__esbpackInternalDevServerClientJsSource__);
+      res.code(200).type('text/javascript').send(devServerClientJsSource);
     });
 
     fastify.get(path.join(_options.publicDir, '*'), (req, res) => {
