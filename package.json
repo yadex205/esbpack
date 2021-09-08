@@ -2,6 +2,10 @@
   "name": "esbpack",
   "version": "0.0.0",
   "description": "Yet another bundler for websites with esbuild",
+  "keywords": [
+    "esbuild",
+    "bundler"
+  ],
   "author": "Kanon Kakuno <yadex205@outlook.jp>",
   "license": "MIT",
   "repository": {
@@ -17,6 +21,10 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*.d.ts",
+    "dist/**/*.js"
+  ],
   "scripts": {
     "build": "concurrently -n lib,dts 'npm:build-lib' 'npm:build-dts'",
     "build-lib": "ts-node -T ./scripts/build.ts",
