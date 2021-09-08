@@ -34,7 +34,7 @@ export type EsbpackBuildOptions = Omit<esbuild.BuildOptions, 'write'>;
 
 export interface EsbpackOptions {
   defineBuilds: (build: (options: EsbpackBuildOptions) => void) => void;
-  onAllBuildsFinished?: (assetsManager: AssetsManager) => {};
+  onAllBuildsFinished?: (args: { assetsManager: AssetsManager }) => {};
   devServer?: {
     port?: number;
     publicDir?: string;
@@ -48,7 +48,7 @@ export const esbpack = async (esbpackOptions: EsbpackOptions) => {
   const devServer = esbpackOptions.devServer ? createDevServer(esbpackOptions.devServer) : undefined;
 
   const _onAllBuildsFinished = async () => {
-    esbpackOptions.onAllBuildsFinished?.(assetsManager);
+    esbpackOptions.onAllBuildsFinished?.({ assetsManager });
 
     const { updatedFilePaths } = assetsManager.commit();
 
