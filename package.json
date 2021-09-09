@@ -1,34 +1,12 @@
 {
-  "name": "esbpack",
-  "version": "0.0.1",
-  "description": "Yet another bundler for websites with esbuild",
-  "keywords": [
-    "esbuild",
-    "bundler"
-  ],
-  "author": "Kanon Kakuno <yadex205@outlook.jp>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yadex205/esbpack.git"
-  },
-  "bugs": {
-    "url": "https://github.com/yadex205/esbpack/issues"
-  },
-  "homepage": "https://github.com/yadex205/esbpack#readme",
-  "engines": {
-    "node": ">=12.4.0"
-  },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/**/*.d.ts",
-    "dist/**/*.js"
+  "private": true,
+  "workspaces": [
+    "./packages/*"
   ],
   "scripts": {
     "build": "concurrently -n lib,dts 'npm:build-lib' 'npm:build-dts'",
     "build-lib": "ts-node -T ./scripts/build.ts",
-    "build-dts": "dts-bundle-generator --project ./tsconfig.dts.json --out-file dist/index.d.ts src/index.ts"
+    "build-dts": "dts-bundle-generator --config dts-bundle-generator.config.json"
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.1",
@@ -40,16 +18,5 @@
     "prettier": "^2.3.2",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
-  },
-  "peerDependencies": {
-    "esbuild": "^0.12.25"
-  },
-  "dependencies": {
-    "fastify": "^3.21.0",
-    "fastify-websocket": "^4.0.0",
-    "mime-types": "^2.1.32",
-    "pino": "^6.13.2",
-    "pino-pretty": "^6.0.0",
-    "tsconfig-paths": "^3.11.0"
   }
 }

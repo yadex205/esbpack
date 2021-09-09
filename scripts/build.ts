@@ -2,8 +2,7 @@ import path from 'path';
 
 import * as esbuild from 'esbuild';
 
-const SRC_DIR = path.join(__dirname, '../src');
-const DIST_DIR = path.join(__dirname, '../dist');
+const PKG_DIR = path.join(__dirname, '../packages');
 
 const externalizeNodeModulesPlugin: esbuild.Plugin = {
   name: 'externalize-node-modules',
@@ -29,8 +28,8 @@ const externalizeNodeModulesPlugin: esbuild.Plugin = {
 };
 
 esbuild.build({
-  entryPoints: [path.join(SRC_DIR, 'dev-server-client.ts')],
-  outfile: path.join(DIST_DIR, 'dev-server-client.js'),
+  entryPoints: [path.join(PKG_DIR, 'esbpack/src/dev-server-client.ts')],
+  outfile: path.join(PKG_DIR, 'esbpack/dist/dev-server-client.js'),
 
   bundle: true,
   format: 'iife',
@@ -39,9 +38,8 @@ esbuild.build({
 });
 
 esbuild.build({
-  entryPoints: [path.join(SRC_DIR, 'index.ts')],
-  outfile: path.join(DIST_DIR, 'index.js'),
-  write: true,
+  entryPoints: [path.join(PKG_DIR, 'esbpack/src/index.ts')],
+  outfile: path.join(PKG_DIR, 'esbpack/dist/index.js'),
 
   bundle: true,
 

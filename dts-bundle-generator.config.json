@@ -1,0 +1,11 @@
+{
+  "compilationOptions": {
+    "preferredConfigPath": "./tsconfig.dts.json"
+  },
+  "entries": [
+    {
+      "filePath": "./packages/esbpack/src/index.ts",
+      "outFile": "./packages/esbpack/dist/index.d.ts"
+    }
+  ]
+}

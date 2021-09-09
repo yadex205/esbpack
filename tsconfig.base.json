@@ -3,6 +3,10 @@
     "target": "es2019",
     "module": "commonjs",
     "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "esbpack": ["packages/esbpack/src"]
+    },
     "strict": true,
     "resolveJsonModule": true,
     "experimentalDecorators": false,

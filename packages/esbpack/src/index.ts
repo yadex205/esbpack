@@ -5,35 +5,24 @@ import * as esbuild from 'esbuild';
 
 import { assetsManager, AssetsManager } from './assets-manager';
 import { createDevServer } from './dev-server';
+import { esbpackInternalAssetsManagerPlugin } from './esbuild-plugin-esbpack-internal-assets-manager';
 import { logger } from './logger';
 
-const esbpackInternalAssetsManagerPlugin = (): esbuild.Plugin => ({
-  name: 'esbpack-internal-assets-manager-plugin',
-  setup: build => {
-    if (build.initialOptions.write) {
-      const error = new Error("esbpack-internal-assets-manager-plugin: esbuild's `write` option should be falsey.");
-      logger.fatal(error);
-      throw error;
-    }
+export interface EsbpackPluginArgs {
+  assetsManager: AssetsManager;
+  logger: typeof logger;
+}
 
-    build.onEnd(buildResult => {
-      if (!buildResult.outputFiles) {
-        const error = new Error("esbpack-internal-assets-manager-plugin: esbuild's `write` option should be falsey.");
-        logger.fatal(error);
-        throw error;
-      }
-
-      buildResult.outputFiles.forEach(file => {
-        assetsManager.addAssetToStaging(file.path, Buffer.from(file.contents));
-      });
-    });
-  },
-});
+export type EsbpackPlugin = (args: EsbpackPluginArgs) => esbuild.Plugin;
 
 export type EsbpackBuildOptions = Omit<esbuild.BuildOptions, 'write'>;
 
+export interface EsbpackDefineBuildsUtils {
+  useEsbpackPlugin: (plugin: EsbpackPlugin) => esbuild.Plugin;
+}
+
 export interface EsbpackOptions {
-  defineBuilds: (build: (options: EsbpackBuildOptions) => void) => void;
+  defineBuilds: (build: (options: EsbpackBuildOptions) => void, utils: EsbpackDefineBuildsUtils) => void;
   onAllBuildsFinished?: (args: { assetsManager: AssetsManager }) => {};
   devServer?: {
     port?: number;
@@ -64,6 +53,10 @@ export const esbpack = async (esbpackOptions: EsbpackOptions) => {
     }
   };
 
+  const useEsbpackPlugin: EsbpackDefineBuildsUtils['useEsbpackPlugin'] = plugin => {
+    return plugin({ assetsManager, logger });
+  };
+
   const build: (buildOptions: EsbpackBuildOptions) => void = buildOptions => {
     builds.push(
       esbuild.build({
@@ -79,12 +72,12 @@ export const esbpack = async (esbpackOptions: EsbpackOptions) => {
               },
             }
           : undefined,
-        plugins: [...(buildOptions.plugins || []), esbpackInternalAssetsManagerPlugin()],
+        plugins: [...(buildOptions.plugins || []), useEsbpackPlugin(esbpackInternalAssetsManagerPlugin)],
       })
     );
   };
 
-  esbpackOptions.defineBuilds(build);
+  esbpackOptions.defineBuilds(build, { useEsbpackPlugin });
   await Promise.all(builds);
 
   _onAllBuildsFinished();
