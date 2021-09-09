@@ -15,10 +15,12 @@ interface LogFn {
   (message: string, ...args: unknown[]): void;
 }
 
-export const logger = {
-  fatal: _logger.fatal as LogFn,
-  error: _logger.error as LogFn,
-  warn: _logger.warn as LogFn,
-  info: _logger.info as LogFn,
-  debug: _logger.debug as LogFn,
-};
+interface Logger {
+  fatal: LogFn;
+  error: LogFn;
+  warn: LogFn;
+  info: LogFn;
+  debug: LogFn;
+}
+
+export const logger: Logger = _logger;
