@@ -6,7 +6,8 @@
   "scripts": {
     "build": "concurrently -n lib,dts 'npm:build-lib' 'npm:build-dts'",
     "build-lib": "ts-node -T ./scripts/build.ts",
-    "build-dts": "dts-bundle-generator --config dts-bundle-generator.config.json"
+    "build-dts": "dts-bundle-generator --config dts-bundle-generator.config.json",
+    "clean": "ts-node -T ./scripts/clean.ts"
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.1",
