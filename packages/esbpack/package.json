@@ -1,6 +1,6 @@
 {
   "name": "esbpack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Yet another bundler for websites with esbuild",
   "keywords": [
     "esbuild",
