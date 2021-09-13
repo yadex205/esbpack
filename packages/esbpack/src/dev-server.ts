@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { URL } from 'url';
 
 import fastifyFactory from 'fastify';
 import fastifyWebsocket, { SocketStream } from 'fastify-websocket';

@@ -4,9 +4,7 @@
     "./packages/*"
   ],
   "scripts": {
-    "build": "concurrently -n lib,dts 'npm:build-lib' 'npm:build-dts'",
-    "build-lib": "ts-node -T ./scripts/build.ts",
-    "build-dts": "dts-bundle-generator --config dts-bundle-generator.config.json",
+    "build": "ts-node -T ./scripts/build.ts",
     "clean": "ts-node -T ./scripts/clean.ts"
   },
   "devDependencies": {
@@ -14,7 +12,6 @@
     "@types/node": "^16.7.13",
     "@types/pino": "^6.3.11",
     "concurrently": "^6.2.1",
-    "dts-bundle-generator": "^5.9.0",
     "esbuild": "^0.12.25",
     "prettier": "^2.3.2",
     "ts-node": "^10.2.1",

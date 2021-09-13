@@ -1,6 +1,6 @@
 import pino from 'pino';
 
-export const _logger = pino({
+const _logger = pino({
   name: 'esbpack',
   prettyPrint: {
     colorize: true,
