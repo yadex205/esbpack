@@ -59,6 +59,22 @@ esbuild.build({
 
   plugins: [externalizeNodeModulesPlugin],
 });
+
+esbuild.build({
+  entryPoints: [path.join(PKG_DIR, 'esbuild-plugin-esbpack-external-file/src/index.ts')],
+  outfile: path.join(PKG_DIR, 'esbuild-plugin-esbpack-external-file/dist/index.js'),
+
+  bundle: true,
+
+  format: 'cjs',
+  minify: true,
+  platform: 'node',
+  target: 'node12',
+
+  plugins: [externalizeNodeModulesPlugin],
+});
+
 (async () => {
   await buildTsProject(path.join(PKG_DIR, 'esbpack/tsconfig.dts.json'));
+  await buildTsProject(path.join(PKG_DIR, 'esbuild-plugin-esbpack-external-file/tsconfig.dts.json'));
 })();

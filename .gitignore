@@ -1,2 +1,3 @@
 /node_modules
 /packages/esbpack/dist
+/packages/esbuild-plugin-esbpack-external-file/dist
