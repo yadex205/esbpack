@@ -1,6 +1,6 @@
 {
   "name": "@esbpack/esbuild-plugin-esbpack-external-file",
-  "version": "0.0.0",
+  "version": "0.0.5",
   "description": "External file handling plugin for esbuild in esbpack",
   "keywords": [
     "esbpack"
