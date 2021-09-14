@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "files": [
+    "./src/assets-manager.ts",
+    "./src/dev-server.ts",
+    "./src/esbuild-plugin-esbpack-internal-assets-manager.ts",
+    "./src/index.ts",
+    "./src/logger.ts"
+  ],
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "lib": ["ES2019"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true,
+    "emitDeclarationOnly": true
+  }
+}
